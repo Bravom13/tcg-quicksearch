@@ -1,0 +1,27 @@
+{
+  "name": "tcg-quicksearch",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "parcel src/index.html",
+    "build": "parcel build src/index.html",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Bravom13/tcg-quicksearch.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Bravom13/tcg-quicksearch/issues"
+  },
+  "homepage": "https://github.com/Bravom13/tcg-quicksearch#readme",
+  "dependencies": {
+    "parcel": "^2.15.4",
+    "pokemontcgsdk": "^2.0.0"
+  }
+}
