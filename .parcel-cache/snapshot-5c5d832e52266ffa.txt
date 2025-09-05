@@ -1,4 +1,4 @@
-3982
+3986
 106C:\Users\raymu\Documents\Proyectos\tcg-quicksearch\node_modules\utility-types\dist\aliases-and-guards.d.ts134014197018166128 0
 91C:\Users\raymu\Documents\Proyectos\tcg-quicksearch\node_modules\caniuse-lite\data\agents.js134014197011034540 0
 108C:\Users\raymu\Documents\Proyectos\tcg-quicksearch\node_modules\utility-types\dist\functional-helpers.js.map134014197018186122 0
@@ -10,7 +10,7 @@
 92C:\Users\raymu\Documents\Proyectos\tcg-quicksearch\node_modules\@parcel\cache\lib\types.d.ts134014197001465523 0
 117C:\Users\raymu\Documents\Proyectos\tcg-quicksearch\node_modules\@swc\helpers\_\_async_generator_delegate\package.json134014197009135920 0
 111C:\Users\raymu\Documents\Proyectos\tcg-quicksearch\node_modules\@swc\helpers\_\_class_private_field_destructure134014197009205979 1
-55C:\Users\raymu\Documents\Proyectos\tcg-quicksearch\dist134015132471900074 1
+55C:\Users\raymu\Documents\Proyectos\tcg-quicksearch\dist134015132814663298 1
 61C:\Users\raymu\Documents\Proyectos\tcg-quicksearch\index.html134014197001141452 0
 95C:\Users\raymu\Documents\Proyectos\tcg-quicksearch\node_modules\caniuse-lite\data\regions\TL.js134014197013770722 0
 116C:\Users\raymu\Documents\Proyectos\tcg-quicksearch\node_modules\react-refresh\cjs\react-refresh-babel.development.js134014197017395212 0
@@ -466,6 +466,7 @@
 105C:\Users\raymu\Documents\Proyectos\tcg-quicksearch\node_modules\@parcel\optimizer-swc\src\SwcOptimizer.js134014197003069435 0
 89C:\Users\raymu\Documents\Proyectos\tcg-quicksearch\node_modules\utility-types\SECURITY.md134014197018156115 0
 109C:\Users\raymu\Documents\Proyectos\tcg-quicksearch\node_modules\caniuse-lite\data\features\arrow-functions.js134014197011087307 0
+87C:\Users\raymu\Documents\Proyectos\tcg-quicksearch\dist\tcg-quicksearch.c1596775.js.map134015132814663298 0
 133C:\Users\raymu\Documents\Proyectos\tcg-quicksearch\node_modules\@parcel\package-manager\test\fixtures\packages\peers-2.0\package.json134014197003214422 0
 97C:\Users\raymu\Documents\Proyectos\tcg-quicksearch\node_modules\@parcel\reporter-cli\src\emoji.js134014197003558182 0
 84C:\Users\raymu\Documents\Proyectos\tcg-quicksearch\node_modules\qs\test\stringify.js134014197017375217 0
@@ -1888,6 +1889,7 @@
 97C:\Users\raymu\Documents\Proyectos\tcg-quicksearch\node_modules\call-bind-apply-helpers\README.md134014197010929118 0
 105C:\Users\raymu\Documents\Proyectos\tcg-quicksearch\node_modules\@parcel\types-internal\src\PackageName.js134014197006639750 0
 93C:\Users\raymu\Documents\Proyectos\tcg-quicksearch\node_modules\es-object-atoms\ToObject.d.ts134014197014543641 0
+88C:\Users\raymu\Documents\Proyectos\tcg-quicksearch\dist\tcg-quicksearch.67c9406c.css.map134015132814663298 0
 84C:\Users\raymu\Documents\Proyectos\tcg-quicksearch\node_modules\es-errors\index.d.ts134014197014465710 0
 86C:\Users\raymu\Documents\Proyectos\tcg-quicksearch\node_modules\es-errors\package.json134014197014465710 0
 106C:\Users\raymu\Documents\Proyectos\tcg-quicksearch\node_modules\caniuse-lite\data\features\console-time.js134014197011227653 0
@@ -2389,7 +2391,7 @@
 107C:\Users\raymu\Documents\Proyectos\tcg-quicksearch\node_modules\caniuse-lite\data\features\css-clip-path.js134014197011325755 0
 109C:\Users\raymu\Documents\Proyectos\tcg-quicksearch\node_modules\caniuse-lite\data\features\css-placeholder.js134014197011576608 0
 110C:\Users\raymu\Documents\Proyectos\tcg-quicksearch\node_modules\caniuse-lite\data\features\css-color-adjust.js134014197011335838 0
-66C:\Users\raymu\Documents\Proyectos\tcg-quicksearch\dist\index.html134015132471522501 0
+66C:\Users\raymu\Documents\Proyectos\tcg-quicksearch\dist\index.html134015132814475907 0
 104C:\Users\raymu\Documents\Proyectos\tcg-quicksearch\node_modules\caniuse-lite\data\features\selectlist.js134014197012608611 0
 112C:\Users\raymu\Documents\Proyectos\tcg-quicksearch\node_modules\caniuse-lite\data\features\css-color-function.js134014197011335838 0
 113C:\Users\raymu\Documents\Proyectos\tcg-quicksearch\node_modules\caniuse-lite\data\features\css-conic-gradients.js134014197011335838 0
@@ -3981,3 +3983,5 @@
 88C:\Users\raymu\Documents\Proyectos\tcg-quicksearch\dist\tcg-quicksearch.2cdaf7bc.css.map134015132471900074 0
 83C:\Users\raymu\Documents\Proyectos\tcg-quicksearch\dist\tcg-quicksearch.31b563d9.js134015132471738404 0
 87C:\Users\raymu\Documents\Proyectos\tcg-quicksearch\dist\tcg-quicksearch.31b563d9.js.map134015132471758410 0
+84C:\Users\raymu\Documents\Proyectos\tcg-quicksearch\dist\tcg-quicksearch.67c9406c.css134015132814485922 0
+83C:\Users\raymu\Documents\Proyectos\tcg-quicksearch\dist\tcg-quicksearch.c1596775.js134015132814485922 0
