@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokémon TCG Quick Search</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Pokémon TCG Quick Search</h1>
+        <div class="search-container">
+            <input type="text" id="card-name-input" placeholder="Enter card name (e.g., Pikachu)">
+            <button id="search-button">Search</button>
+        </div>
+        <div class="options-container">
+            <input type="checkbox" id="sort-by-newest-checkbox">
+            <label for="sort-by-newest-checkbox">Sort by newest (slower)</label>
+        </div>
+        <div id="results-container">
+            <!-- Card details will be displayed here -->
+        </div>
+        <div id="pagination-container"></div>
+        <div id="diagnostics-container"></div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/pokemontcgsdk/dist/pokemontcgsdk.umd.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
