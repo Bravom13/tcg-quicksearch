@@ -1,12 +1,8 @@
-import pokemontcg from 'pokemontcgsdk';
 import './style.css';
 
 // --- Configuration ---
 const POKEMON_TCG_API_KEY = 'be46a73c-f689-4beb-bac7-36e2c6c9deac'; // Replace with your key
 const CARDS_PER_PAGE = 5;
-
-// --- SDK Configuration ---
-pokemontcg.configure({ apiKey: POKEMON_TCG_API_KEY });
 
 // --- Application State ---
 const state = {
@@ -46,22 +42,14 @@ const diagnosticsContainer = document.getElementById('diagnostics-container');
 
 const getCardData = async (cardName, page) => {
     state.currentSearchTerm = cardName;
-    const sortByNewest = sortCheckbox.checked;
-    const cacheKey = `${cardName}_${page}_${sortByNewest}`;
-
-    if (state.cache.has(cacheKey)) {
-        const cachedData = state.cache.get(cacheKey);
-        processApiResponse(cachedData);
-        displayRequestTime(0, true);
-        return;
-    }
-
-    await fetchAndProcessCardData(cardName, page, sortByNewest, cacheKey);
+    state.currentPage = page;
+    await fetchAndProcessCardData(cardName, page);
 };
 
-const fetchAndProcessCardData = async (cardName, page, sortByNewest, cacheKey) => {
+const fetchAndProcessCardData = async (cardName, page) => {
     showSpinner();
     disableControls();
+    diagnosticsContainer.innerHTML = ''; // Clear diagnostics
 
     if (POKEMON_TCG_API_KEY === 'YOUR_API_KEY') {
         displayError('Please replace `YOUR_API_KEY` with your actual API key.');
@@ -69,19 +57,47 @@ const fetchAndProcessCardData = async (cardName, page, sortByNewest, cacheKey) =
         return;
     }
 
-    const params = { q: `name:${cardName}*`, page, pageSize: CARDS_PER_PAGE };
-    if (sortByNewest) {
-        params.orderBy = '-set.releaseDate';
-    }
-
+    const sortByNewest = sortCheckbox.checked;
     const startTime = performance.now();
+
     try {
-        const result = await pokemontcg.card.where(params);
+        // Step 1: Fetch only the card IDs for the page
+        const idUrl = new URL('https://api.pokemontcg.io/v2/cards');
+        const idParams = {
+            q: `name:${cardName}*`,
+            page: page,
+            pageSize: CARDS_PER_PAGE,
+            select: 'id'
+        };
+        if (sortByNewest) {
+            idParams.orderBy = '-set.releaseDate';
+        }
+        idUrl.search = new URLSearchParams(idParams).toString();
+
+        const idResponse = await fetch(idUrl, {
+            headers: { 'X-Api-Key': POKEMON_TCG_API_KEY }
+        });
+
+        if (!idResponse.ok) throw new Error(`HTTP error! status: ${idResponse.status}`);
+
+        const idResult = await idResponse.json();
+
+        if (idResult.data.length === 0) {
+            displayError('Card not found. Please try another search.');
+            return;
+        }
+
+        // Update pagination and clear results area
+        state.totalPages = Math.ceil(idResult.totalCount / CARDS_PER_PAGE);
+        renderPaginationControls();
+        resultsContainer.innerHTML = '';
+
         const endTime = performance.now();
-        
-        state.cache.set(cacheKey, result);
-        processApiResponse(result);
-        displayRequestTime(endTime - startTime);
+        diagnosticsContainer.innerHTML = `ID Fetch Time: ${(endTime - startTime).toFixed(2)} ms. Now fetching details...`;
+
+        // Step 2: Fetch details for each card individually
+        idResult.data.map(cardInfo => fetchSingleCard(cardInfo.id));
+
     } catch (error) {
         console.error('Fetch error:', error);
         displayError('An error occurred while fetching card data.');
@@ -90,36 +106,52 @@ const fetchAndProcessCardData = async (cardName, page, sortByNewest, cacheKey) =
     }
 };
 
-const processApiResponse = (data) => {
-    if (data.data.length === 0) {
-        displayError('Card not found. Please try another search.');
+const fetchSingleCard = async (cardId) => {
+    const cacheKey = `card_${cardId}`;
+    if (state.cache.has(cacheKey)) {
+        displaySingleCard(state.cache.get(cacheKey));
         return;
     }
-    state.currentPage = data.page;
-    state.totalPages = Math.ceil(data.totalCount / CARDS_PER_PAGE);
-    displayCards(data.data);
-    renderPaginationControls();
+
+    const url = new URL(`https://api.pokemontcg.io/v2/cards/${cardId}`);
+    const params = {
+        select: 'name,images,types,abilities,tcgplayer'
+    };
+    url.search = new URLSearchParams(params).toString();
+
+    try {
+        const response = await fetch(url, {
+            headers: { 'X-Api-Key': POKEMON_TCG_API_KEY }
+        });
+        if (!response.ok) throw new Error(`Failed to fetch card ${cardId}`);
+        
+        const result = await response.json();
+        const cardData = result.data;
+
+        state.cache.set(cacheKey, cardData);
+        displaySingleCard(cardData);
+    } catch (error) {
+        console.error(error);
+        // Optionally display a placeholder for the failed card
+    }
 };
 
-const displayCards = (cards) => {
-    resultsContainer.innerHTML = '';
-    cards.forEach(card => {
-        const cardResult = document.createElement('div');
-        cardResult.className = 'card-result';
-        const imageUrl = card.images?.small || '';
-        cardResult.innerHTML = `
-            <div class="card-image">
-                <img src="${imageUrl}" alt="${card.name}" loading="lazy">
-            </div>
-            <div class="card-details">
-                <h2>${card.name}</h2>
-                <p><strong>Type:</strong> ${card.types ? card.types.join(', ') : 'N/A'}</p>
-                ${renderAbilities(card.abilities)}
-                ${renderPrices(card.tcgplayer?.prices)}
-            </div>
-        `;
-        resultsContainer.appendChild(cardResult);
-    });
+const displaySingleCard = (card) => {
+    const cardResult = document.createElement('div');
+    cardResult.className = 'card-result';
+    const imageUrl = card.images?.small || '';
+    cardResult.innerHTML = `
+        <div class="card-image">
+            <img src="${imageUrl}" alt="${card.name}" loading="lazy">
+        </div>
+        <div class="card-details">
+            <h2>${card.name}</h2>
+            <p><strong>Type:</strong> ${card.types ? card.types.join(', ') : 'N/A'}</p>
+            ${renderAbilities(card.abilities)}
+            ${renderPrices(card.tcgplayer?.prices)}
+        </div>
+    `;
+    resultsContainer.appendChild(cardResult);
 };
 
 const renderAbilities = (abilities) => {
@@ -136,7 +168,7 @@ const renderPrices = (prices) => {
     if (!prices) return '';
     const priceList = Object.entries(prices).map(([key, value]) => {
         if (value && value.market) {
-            return `<li><strong>${key}:</strong> $${value.market.toFixed(2)}</li>`;
+            return `<li><strong>${key}:</strong> ${value.market.toFixed(2)}</li>`;
         }
         return '';
     }).join('');
